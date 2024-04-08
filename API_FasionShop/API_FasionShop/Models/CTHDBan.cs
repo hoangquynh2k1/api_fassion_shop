@@ -1,0 +1,11 @@
+﻿namespace API_FasionShop.Models
+{
+    public class CTHDBan
+    {
+        [Key]
+        public int Id { get; set; }
+        public int IdHDBan { get; set; }
+        public int IdCTSPham { get; set; }
+        public int SoLuong { get; set; }
+    }
+}
