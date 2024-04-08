@@ -1,6 +1,20 @@
-var builder = WebApplication.CreateBuilder(args);
+using API_FasionShop.Entities;
+using API_FasionShop.Services;
+using APITest.Models;
+using Microsoft.Extensions.Configuration;
 
-// Add services to the container.
+var builder = WebApplication.CreateBuilder(args);
+var config = new ConfigurationBuilder().AddJsonFile("appsettings.json")
+    .Build();
+// Email services
+builder.Services.AddOptions();
+var mailsettings = config.GetSection("MailSettings");
+builder.Services.Configure<MailSettings>(mailsettings);
+builder.Services.AddScoped<ISendMailService,SendMailService>();
+
+//DB services
+var connectionString = builder.Configuration.GetConnectionString("AppDBConnectionString");
+builder.Services.AddDbContext<AppDBContext>(options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -17,7 +31,12 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseRouting();
+app.UseCors(x => x
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader());
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
