@@ -1,6 +1,6 @@
-using API_FasionShop.Entities;
-using API_FasionShop.Services;
-using APITest.Models;
+using API_FashionShop.Entities;
+using API_FashionShop.Services;
+using API_FashionShop.Models;
 using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);

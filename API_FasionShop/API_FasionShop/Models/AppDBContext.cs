@@ -1,7 +1,6 @@
 ﻿using API_FashionShop.Models;
-using API_FasionShop.Models;
 
-namespace APITest.Models
+namespace API_FashionShop.Models
 {
     public class AppDBContext : DbContext
     {

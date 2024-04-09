@@ -1,5 +1,4 @@
-﻿using API_FasionShop.Models;
-using APITest.Models;
+﻿using API_FashionShop.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

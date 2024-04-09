@@ -1,9 +1,9 @@
-﻿using API_FasionShop.Entities;
+﻿using API_FashionShop.Entities;
 using Microsoft.Extensions.Options;
 using MimeKit;
 using MailKit.Security;
 
-namespace API_FasionShop.Services
+namespace API_FashionShop.Services
 {
     public class SendMailService : ISendMailService
     {
