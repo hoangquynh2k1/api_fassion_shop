@@ -1,4 +1,4 @@
-﻿namespace API_FasionShop.Models
+﻿namespace API_FashionShop.Models
 {
     public class CTHDNhap
     {

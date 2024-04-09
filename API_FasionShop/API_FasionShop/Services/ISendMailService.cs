@@ -1,6 +1,6 @@
-﻿using API_FasionShop.Entities;
+﻿using API_FashionShop.Entities;
 
-namespace API_FasionShop.Services
+namespace API_FashionShop.Services
 {
     public interface ISendMailService
     {

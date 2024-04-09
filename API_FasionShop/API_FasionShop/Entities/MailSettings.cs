@@ -1,4 +1,4 @@
-﻿namespace API_FasionShop.Entities
+﻿namespace API_FashionShop.Entities
 {
     public class MailSettings
     {

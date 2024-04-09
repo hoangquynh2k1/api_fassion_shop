@@ -1,4 +1,4 @@
-﻿using API_FasionShop.Services;
+﻿using API_FashionShop.Services;
 using MailKit;
 using Microsoft.AspNetCore.Mvc;
 
