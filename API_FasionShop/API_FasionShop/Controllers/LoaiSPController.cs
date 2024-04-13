@@ -6,41 +6,51 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API_FashionShop.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
-    public class BaiVietController : ControllerBase
+    public class LoaiSPController : ControllerBase
     {
-        BaiVietBUS baiVietBUS;
-        public BaiVietController(AppDBContext db)
+        LoaiSPBUS loaiSPBUS;
+        public LoaiSPController(AppDBContext db)
         {
-            baiVietBUS = new BaiVietBUS(db);
+            loaiSPBUS = new LoaiSPBUS(db);
         }
         [HttpGet]
         public Respone GetAll()
         {
-            return new Respone(true, Status.Success, string.Empty, baiVietBUS.Gets());
+            return new Respone(true, Status.Success, string.Empty, loaiSPBUS.Gets());
+        }
+        [HttpGet]
+        public Respone Search()
+        {
+            return new Respone(true, Status.Success, string.Empty, loaiSPBUS.Gets());
         }
         [HttpGet("{id}")]
         public Respone GetById(int id)
         {
             try
             {
-                var result = baiVietBUS.Get(id);
+                var result = loaiSPBUS.Get(id);
+                if (result == null)
+                {
+                    return new Respone(false, Status.NotFound);
+                }
                 return new Respone(true, Status.Success, string.Empty, result);
             }
             catch (Exception ex)
             {
                 return new Respone(false, Status.ApplicationError, string.Empty, ex.Message);
             }
+
         }
         [HttpPost]
-        public Respone Create(BaiViet o)
+        public Respone Create(LoaiSP o)
         {
             try
             {
-                if (o.TieuDe == string.Empty || o.NoiDung == string.Empty)
+                if (o.TenLoai == string.Empty || o.TenLoai == string.Empty)
                     return new Respone(false, Status.BadRequest, string.Empty);
-                var result = baiVietBUS.Create(o);
+                var result = loaiSPBUS.Create(o);
                 return new Respone(true, Status.Success, string.Empty, o);
             }
             catch (Exception ex)
@@ -48,15 +58,14 @@ namespace API_FashionShop.Controllers
                 return new Respone(false, Status.ApplicationError, string.Empty, ex.Message);
             }
         }
-
         [HttpPut("{id}")]
-        public Respone Update(int id, BaiViet o)
+        public Respone Update(int id, LoaiSP o)
         {
             try
             {
-                if (o.TieuDe == string.Empty || o.NoiDung == string.Empty)
+                if (o.TenLoai == string.Empty || o.MoTa == string.Empty)
                     return new Respone(false, Status.BadRequest, string.Empty);
-                var result = baiVietBUS.Update(o);
+                var result = loaiSPBUS.Update(o);
                 return new Respone(true, Status.Success, string.Empty, result);
             }
             catch (Exception ex)
@@ -70,12 +79,12 @@ namespace API_FashionShop.Controllers
         {
             try
             {
-                var result = baiVietBUS.Delete(id);
+                var result = loaiSPBUS.Delete(id);
                 return new Respone(true, Status.Success, string.Empty, result);
             }
             catch (Exception ex)
             {
-                return new Respone(false, Status.ApplicationError, string.Empty, ex.Message);
+                return new Respone(false, Status.ApplicationError, string.Empty, ex);
             }
         }
     }
