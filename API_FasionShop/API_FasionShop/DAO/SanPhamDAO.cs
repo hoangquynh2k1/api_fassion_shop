@@ -1,4 +1,5 @@
-﻿using API_FashionShop.Models;
+﻿using API_FashionShop.Entities;
+using API_FashionShop.Models;
 
 namespace API_FashionShop.DAO
 {
@@ -13,9 +14,19 @@ namespace API_FashionShop.DAO
         {
             return db.SanPhams.Where(x => x.TrangThai == true).ToList();
         }
-        public SanPham? Get(int id)
+        public SanPhamEntity? Get(int id)
         {
-            return db.SanPhams.Where(x => x.TrangThai == true).FirstOrDefault(x => x.Id == id);
+            var sp = db.SanPhams.Where(x => x.TrangThai == true).FirstOrDefault(x => x.Id == id);
+            if (sp == null) { return null; }
+            var ctsp = db.CTSPhams.Where(x => x.IdSanPham == id && x.TrangThai == true).ToList();
+            var sanPhamE = new SanPhamEntity();
+            sanPhamE.Id = id;
+            sanPhamE.TenSP = sp.TenSP;
+            sanPhamE.MoTa = sp.MoTa;
+            sanPhamE.Gia = sp.Gia;
+            sanPhamE.HinhAnh = sp.HinhAnh1;
+            sanPhamE.CTSPhams = ctsp;
+            return sanPhamE;
         }
         public bool Create(SanPham o)
         {

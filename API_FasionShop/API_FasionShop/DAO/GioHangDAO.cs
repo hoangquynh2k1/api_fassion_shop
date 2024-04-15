@@ -1,13 +1,16 @@
-﻿using API_FashionShop.Models;
+﻿using API_FashionShop.Entities;
+using API_FashionShop.Models;
 
 namespace API_FashionShop.DAO
 {
     public class GioHangDAO
     {
         AppDBContext db;
+        CTGHangDAO CTGHangDAO;
         public GioHangDAO(AppDBContext db)
         {
             this.db = db;
+            CTGHangDAO = new CTGHangDAO(db);
         }
         public List<GioHang> Gets()
         {
@@ -15,6 +18,15 @@ namespace API_FashionShop.DAO
         }
         public GioHang? Get(int id)
         {
+            var gh = db.GioHangs.Where(x => x.TrangThai == true).FirstOrDefault(x => x.Id == id);
+            if (gh == null) { return null; }
+            var ctgh = CTGHangDAO.GetByIdGH(id);
+            var gioHangE = new GioHangEntity();
+            gioHangE.Id = id;
+            gioHangE.IdKH = gh.IdKH;
+            gioHangE.NgayTao = gh.NgayTao;
+            gioHangE.TrangThai = gh.TrangThai;
+            gioHangE.cTGHangs = ctgh;
             return db.GioHangs.Where(x => x.TrangThai == true).FirstOrDefault(x => x.Id == id);
         }
         public bool Create(GioHang o)
