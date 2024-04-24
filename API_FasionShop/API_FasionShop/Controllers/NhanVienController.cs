@@ -1,19 +1,25 @@
 ﻿using API_FashionShop.BUS;
 using API_FashionShop.Entities;
 using API_FashionShop.Models;
+using API_FashionShop.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API_FashionShop.Controllers
 {
+    [Authorize]
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class NhanVienController : ControllerBase
     {
         NhanVienBUS nhanvienBUS;
-        public NhanVienController(AppDBContext db)
+        private IUserService _userService;
+
+        public NhanVienController(AppDBContext db, IUserService userService)
         {
             nhanvienBUS = new NhanVienBUS(db);
+            _userService = userService;
         }
         [HttpGet]
         public Respone GetAll()
@@ -36,6 +42,24 @@ namespace API_FashionShop.Controllers
                     return new Respone(false, Status.NotFound);
                 }
                 return new Respone(true, Status.Success, string.Empty, result);
+            }
+            catch (Exception ex)
+            {
+                return new Respone(false, Status.ApplicationError, string.Empty, ex.Message);
+            }
+        }
+        [AllowAnonymous]
+        [HttpPost()]
+        public Respone Authenticate([FromBody] AuthenticateModel model)
+        {
+            try
+            {
+                var user = _userService.Authenticate(model.Username, model.Password);
+
+                if (user == null)
+                    return new Respone(false, Status.BadRequest, "Tài khoản hoặc mật khẩu sai!", model);
+
+                return new Respone(true, Status.Success, "", user);
             }
             catch (Exception ex)
             {

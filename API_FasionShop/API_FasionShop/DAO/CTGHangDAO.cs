@@ -1,4 +1,5 @@
-﻿using API_FashionShop.Models;
+﻿using API_FashionShop.Entities;
+using API_FashionShop.Models;
 
 namespace API_FashionShop.DAO
 {
@@ -12,6 +13,26 @@ namespace API_FashionShop.DAO
         public List<CTGHang> Gets()
         {
             return db.CTGHangs.ToList();
+        }
+        public List<CTGHangEntity> GetByIdGH(int id)
+        {
+            var list = db.CTGHangs.Where(x => x.IdGh == id).ToList();
+            var listCTGHang = new List<CTGHangEntity>();
+            CTGHangEntity ct;
+            CTSPham? ctsp;
+            SanPham sp;
+            for (int i = 0; i < list.Count; i ++)
+            {
+                ct = new CTGHangEntity();
+                ct.IdCTSP = list[i].IdCTSP;
+                ct.IdGh = list[i].IdGh;
+                ctsp = db.CTSPhams.FirstOrDefault(x => x.Id == list[i].IdCTSP)!;
+                sp = db.SanPhams.FirstOrDefault(x => x.Id == ctsp.IdSanPham)!;
+                ct.HinhAnh = ctsp.HinhAnh!;
+                ct.TenSP = sp.TenSP!;
+                listCTGHang.Add(ct);
+            }    
+            return listCTGHang;
         }
         public CTGHang? Get(int id)
         {

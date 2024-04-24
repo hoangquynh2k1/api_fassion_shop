@@ -160,6 +160,7 @@ namespace API_FashionShop.Migrations
                     NgayTao = table.Column<DateTime>(type: "DATE", nullable: false),
                     KhuyenMai = table.Column<int>(type: "int", nullable: false),
                     TongTien = table.Column<int>(type: "int", nullable: false),
+                    TinhTrangDH = table.Column<int>(type: "int", nullable: false),
                     TrangThai = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>

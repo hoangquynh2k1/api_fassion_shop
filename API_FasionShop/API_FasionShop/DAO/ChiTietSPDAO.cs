@@ -1,14 +1,42 @@
-﻿using API_FashionShop.Models;
+﻿using API_FashionShop.Entities;
+using API_FashionShop.Models;
+using System.Collections.Generic;
 
 namespace API_FashionShop.DAO
 {
     public class ChiTietSPDAO
     {
         AppDBContext db;
+        CTHDBanDAO cthDBanDAO;
         public ChiTietSPDAO(AppDBContext db)
         {
             this.db = db;
+            cthDBanDAO = new CTHDBanDAO(db);
         }
+        public List<int> GetBestSellerList()
+        {
+            var list = cthDBanDAO.GetIdCTSPSeller();
+            var idSPs = new List<BestSeller>();
+            foreach (var ct in list)
+            {
+                var idsp = db.CTSPhams.FirstOrDefault(x => x.Id == ct.IdCTSPham)?.IdSanPham;
+                if (idsp != null)
+                {
+                    var existingSP = idSPs.FirstOrDefault(x => x.IdSp == idsp);
+                    if (existingSP != null)
+                    {
+                        existingSP.SoLuong += ct.SoLuong; // Tăng số lượng nếu sản phẩm đã tồn tại
+                    }
+                    else
+                    {
+                        idSPs.Add(new BestSeller() { IdSp = idsp.Value, SoLuong = ct.SoLuong }); // Thêm sản phẩm mới vào danh sách
+                    }
+                }
+            }
+            var idBestSeller = idSPs.OrderByDescending(x => x.SoLuong).Select(x => x.IdSp).ToList(); // Sắp xếp theo số lượng giảm dần và lấy ra danh sách IdSanPham
+            return idBestSeller;
+        }
+
         public List<CTSPham> Gets()
         {
             return db.CTSPhams.Where(x => x.TrangThai == true).ToList();

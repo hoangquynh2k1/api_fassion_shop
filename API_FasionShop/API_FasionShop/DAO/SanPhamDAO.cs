@@ -1,21 +1,39 @@
-﻿using API_FashionShop.Models;
+﻿using API_FashionShop.Entities;
+using API_FashionShop.Models;
 
 namespace API_FashionShop.DAO
 {
     public class SanPhamDAO
     {
         AppDBContext db;
+        ChiTietSPDAO cTSPhamDAO;
         public SanPhamDAO(AppDBContext db)
         {
             this.db = db;
+            cTSPhamDAO = new ChiTietSPDAO(db);
         }
         public List<SanPham> Gets()
         {
             return db.SanPhams.Where(x => x.TrangThai == true).ToList();
         }
-        public SanPham? Get(int id)
+        public List<SanPham> GetBestSeller()
         {
-            return db.SanPhams.Where(x => x.TrangThai == true).FirstOrDefault(x => x.Id == id);
+            var list = cTSPhamDAO.GetBestSellerList();
+            return db.SanPhams.Where(x => list.Contains(x.Id)).ToList();
+        }
+        public SanPhamEntity? Get(int id)
+        {
+            var sp = db.SanPhams.Where(x => x.TrangThai == true).FirstOrDefault(x => x.Id == id);
+            if (sp == null) { return null; }
+            var ctsp = db.CTSPhams.Where(x => x.IdSanPham == id && x.TrangThai == true).ToList();
+            var sanPhamE = new SanPhamEntity();
+            sanPhamE.Id = id;
+            sanPhamE.TenSP = sp.TenSP;
+            sanPhamE.MoTa = sp.MoTa;
+            sanPhamE.Gia = sp.Gia;
+            sanPhamE.HinhAnh = sp.HinhAnh1;
+            sanPhamE.CTSPhams = ctsp;
+            return sanPhamE;
         }
         public bool Create(SanPham o)
         {

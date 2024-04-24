@@ -2,6 +2,7 @@ using API_FashionShop.Entities;
 using API_FashionShop.Services;
 using API_FashionShop.Models;
 using Microsoft.Extensions.Configuration;
+using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = new ConfigurationBuilder().AddJsonFile("appsettings.json")
@@ -11,7 +12,15 @@ builder.Services.AddOptions();
 var mailsettings = config.GetSection("MailSettings");
 builder.Services.Configure<MailSettings>(mailsettings);
 builder.Services.AddScoped<ISendMailService,SendMailService>();
-
+builder.Services.AddScoped<IUserService, UserService>();
+//
+builder.Services.AddAuthentication()
+        .AddGoogle(options =>
+        {
+            IConfigurationSection googleAuthNSection = config.GetSection("Authentication:Google");
+            options.ClientId = googleAuthNSection["ClientId"]!;
+            options.ClientSecret = googleAuthNSection["ClientSecret"]!;
+        });
 //DB services
 var connectionString = builder.Configuration.GetConnectionString("AppDBConnectionString");
 builder.Services.AddDbContext<AppDBContext>(options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
