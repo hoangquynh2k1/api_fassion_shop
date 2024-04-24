@@ -8,7 +8,7 @@ namespace API_FashionShop.Entities
         public int IdKH { get; set; }
         public DateTime NgayTao { get; set; }
         public bool TrangThai { get; set; }
-        public List<CTGHangEntity>? cTGHangs { get; set; }
+        public List<CTGHangEntity> cTGHangs { get; set; } = new List<CTGHangEntity>();
 
     }
 }

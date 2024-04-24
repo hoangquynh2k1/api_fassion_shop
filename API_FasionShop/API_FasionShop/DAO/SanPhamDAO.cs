@@ -6,13 +6,20 @@ namespace API_FashionShop.DAO
     public class SanPhamDAO
     {
         AppDBContext db;
+        ChiTietSPDAO cTSPhamDAO;
         public SanPhamDAO(AppDBContext db)
         {
             this.db = db;
+            cTSPhamDAO = new ChiTietSPDAO(db);
         }
         public List<SanPham> Gets()
         {
             return db.SanPhams.Where(x => x.TrangThai == true).ToList();
+        }
+        public List<SanPham> GetBestSeller()
+        {
+            var list = cTSPhamDAO.GetBestSellerList();
+            return db.SanPhams.Where(x => list.Contains(x.Id)).ToList();
         }
         public SanPhamEntity? Get(int id)
         {

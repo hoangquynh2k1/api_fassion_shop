@@ -3,4 +3,4 @@
 # Migration
 - add-migration "Tên migarate"
 - Update-Database
-- Remove-Migration
+- Remove-Migration -Force

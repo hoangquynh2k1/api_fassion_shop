@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API_FashionShop.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20240408091605_Create_db")]
+    [Migration("20240417180919_Create_db")]
     partial class Create_db
     {
         /// <inheritdoc />
@@ -21,6 +21,101 @@ namespace API_FashionShop.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.17")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
+
+            modelBuilder.Entity("API_FashionShop.Models.BaiViet", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdNV")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("NgayViet")
+                        .HasColumnType("DATE");
+
+                    b.Property<string>("NoiDung")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("TieuDe")
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("TrangThai")
+                        .HasColumnType("tinyint(1)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BaiViets");
+                });
+
+            modelBuilder.Entity("API_FashionShop.Models.CTGHang", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdCTSP")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdGh")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MauSac")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Size")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("SoLuong")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CTGHangs");
+                });
+
+            modelBuilder.Entity("API_FashionShop.Models.CTHDBan", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdCTSPham")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdHDBan")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SoLuong")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CTHDBans");
+                });
+
+            modelBuilder.Entity("API_FashionShop.Models.CTHDNhap", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("GiaNhap")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdCTSPham")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdHDNhap")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SoLuong")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CTHDNhaps");
+                });
 
             modelBuilder.Entity("API_FashionShop.Models.CTSPham", b =>
                 {
@@ -51,102 +146,7 @@ namespace API_FashionShop.Migrations
                     b.ToTable("CTSPhams");
                 });
 
-            modelBuilder.Entity("API_FasionShop.Models.BaiViet", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdNV")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("NgayViet")
-                        .HasColumnType("DATE");
-
-                    b.Property<string>("NoiDung")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("TieuDe")
-                        .HasColumnType("longtext");
-
-                    b.Property<bool>("TrangThai")
-                        .HasColumnType("tinyint(1)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BaiViets");
-                });
-
-            modelBuilder.Entity("API_FasionShop.Models.CTGHang", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdCTSP")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdGh")
-                        .HasColumnType("int");
-
-                    b.Property<string>("MauSac")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Size")
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("SoLuong")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CTGHangs");
-                });
-
-            modelBuilder.Entity("API_FasionShop.Models.CTHDBan", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdCTSPham")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdHDBan")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SoLuong")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CTHDBans");
-                });
-
-            modelBuilder.Entity("API_FasionShop.Models.CTHDNhap", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("GiaNhap")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdCTSPham")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdHDNhap")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SoLuong")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CTHDNhaps");
-                });
-
-            modelBuilder.Entity("API_FasionShop.Models.DiaChi", b =>
+            modelBuilder.Entity("API_FashionShop.Models.DiaChi", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -169,7 +169,7 @@ namespace API_FashionShop.Migrations
                     b.ToTable("DiaChis");
                 });
 
-            modelBuilder.Entity("API_FasionShop.Models.GioHang", b =>
+            modelBuilder.Entity("API_FashionShop.Models.GioHang", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -189,7 +189,7 @@ namespace API_FashionShop.Migrations
                     b.ToTable("GioHangs");
                 });
 
-            modelBuilder.Entity("API_FasionShop.Models.HDBan", b =>
+            modelBuilder.Entity("API_FashionShop.Models.HDBan", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -213,6 +213,9 @@ namespace API_FashionShop.Migrations
                     b.Property<DateTime>("NgayTao")
                         .HasColumnType("DATE");
 
+                    b.Property<int>("TinhTrangDH")
+                        .HasColumnType("int");
+
                     b.Property<int>("TongTien")
                         .HasColumnType("int");
 
@@ -224,7 +227,7 @@ namespace API_FashionShop.Migrations
                     b.ToTable("HDBans");
                 });
 
-            modelBuilder.Entity("API_FasionShop.Models.HDNhap", b =>
+            modelBuilder.Entity("API_FashionShop.Models.HDNhap", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -247,7 +250,7 @@ namespace API_FashionShop.Migrations
                     b.ToTable("HDNhaps");
                 });
 
-            modelBuilder.Entity("API_FasionShop.Models.KhachHang", b =>
+            modelBuilder.Entity("API_FashionShop.Models.KhachHang", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -276,7 +279,7 @@ namespace API_FashionShop.Migrations
                     b.ToTable("KhachHangs");
                 });
 
-            modelBuilder.Entity("API_FasionShop.Models.KhuyenMai", b =>
+            modelBuilder.Entity("API_FashionShop.Models.KhuyenMai", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -296,7 +299,7 @@ namespace API_FashionShop.Migrations
                     b.ToTable("KhuyenMais");
                 });
 
-            modelBuilder.Entity("API_FasionShop.Models.LoaiSP", b =>
+            modelBuilder.Entity("API_FashionShop.Models.LoaiSP", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -317,7 +320,7 @@ namespace API_FashionShop.Migrations
                     b.ToTable("LoaiSPs");
                 });
 
-            modelBuilder.Entity("API_FasionShop.Models.Ncc", b =>
+            modelBuilder.Entity("API_FashionShop.Models.Ncc", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -344,7 +347,7 @@ namespace API_FashionShop.Migrations
                     b.ToTable("Nccs");
                 });
 
-            modelBuilder.Entity("API_FasionShop.Models.NhanVien", b =>
+            modelBuilder.Entity("API_FashionShop.Models.NhanVien", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -382,7 +385,7 @@ namespace API_FashionShop.Migrations
                     b.ToTable("NhanViens");
                 });
 
-            modelBuilder.Entity("API_FasionShop.Models.SanPham", b =>
+            modelBuilder.Entity("API_FashionShop.Models.SanPham", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

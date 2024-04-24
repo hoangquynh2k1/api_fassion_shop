@@ -17,6 +17,10 @@ namespace API_FashionShop.DAO
         {
             return db.HDBans.Where(x => x.TrangThai == true).FirstOrDefault(x => x.Id == id);
         }
+        public List<HDBan> GetByIdHKH(int id)
+        {
+            return db.HDBans.Where(x => x.TrangThai == true && x.IdKH == id).ToList();
+        }
         public bool Create(HDBan o)
         {
             var result = db.HDBans.Add(o);
