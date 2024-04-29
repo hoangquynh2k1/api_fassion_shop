@@ -14,13 +14,7 @@ builder.Services.Configure<MailSettings>(mailsettings);
 builder.Services.AddScoped<ISendMailService,SendMailService>();
 builder.Services.AddScoped<IUserService, UserService>();
 //
-builder.Services.AddAuthentication()
-        .AddGoogle(options =>
-        {
-            IConfigurationSection googleAuthNSection = config.GetSection("Authentication:Google");
-            options.ClientId = googleAuthNSection["ClientId"]!;
-            options.ClientSecret = googleAuthNSection["ClientSecret"]!;
-        });
+
 //DB services
 var connectionString = builder.Configuration.GetConnectionString("AppDBConnectionString");
 builder.Services.AddDbContext<AppDBContext>(options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
