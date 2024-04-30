@@ -5,7 +5,7 @@
         public bool Success { get; set; }
         public int StatusCode { get; set; }
         public string StatusMessage { get; set; }
-        public object? data { get; set; }
+        public dynamic? data { get; set; }
 
         public Respone(bool success, int status, string message = "", object? data = null)
         {

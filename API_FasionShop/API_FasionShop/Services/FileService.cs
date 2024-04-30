@@ -4,18 +4,22 @@ namespace API_FashionShop.Services
 {
     public class FileService
     {
-        DropboxClient _client;
-        public FileService(DropboxClient client)
+        public FileService()
         {
-            _client = client;
         }
-        public void Upload(string fileName, string content)
+        public async Task<string> Upload(IFormFile file, string f)
         {
-
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "Images", f, file.FileName);
+            using (var stream = System.IO.File.Create(path))
+            {
+                await file.CopyToAsync(stream);
+            }
+            return "Images/"+f+"/"+file.FileName;
         }
-        public void Read(string fileName)
+        public byte[] Read(string path)
         {
-            //_client.
+            var stream = System.IO.File.ReadAllBytes(path);
+            return stream;
         }
     }
 }
