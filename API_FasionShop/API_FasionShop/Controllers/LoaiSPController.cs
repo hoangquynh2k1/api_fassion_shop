@@ -20,10 +20,35 @@ namespace API_FashionShop.Controllers
         {
             return new Respone(true, Status.Success, string.Empty, loaiSPBUS.Gets());
         }
-        [HttpGet]
-        public Respone Search()
+        [HttpPost]
+        public Respone Search([FromBody] Dictionary<string, object> formData)
         {
-            return new Respone(true, Status.Success, string.Empty, loaiSPBUS.Gets());
+            try
+            {
+                var page = int.Parse(formData["page"].ToString());
+                var pageSize = int.Parse(formData["pageSize"].ToString());
+                string loc = string.Empty;
+                if (formData.Keys.Contains("tenLoai") && !string.IsNullOrEmpty(Convert.ToString(formData["tenLoai"])))
+                { loc = formData["tenLoai"].ToString(); }
+                List<LoaiSP> list = loaiSPBUS.Gets();
+                long total = list.Count();
+                list = list.Where(x => x.TenLoai!.ToLower().Contains(loc.ToLower())
+                ).
+                    Skip(pageSize * (page - 1)).Take(pageSize).ToList();
+                return new Respone(true, Status.Success, string.Empty,
+                           new DataSearch
+                           {
+                               page = page,
+                               totalItem = total,
+                               pageSize = pageSize,
+                               data = list
+                           }
+                         );
+            }
+            catch (Exception ex)
+            {
+                return new Respone(false, Status.ApplicationError, string.Empty, ex.Message);
+            }
         }
         [HttpGet("{id}")]
         public Respone GetById(int id)

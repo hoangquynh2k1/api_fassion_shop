@@ -5,8 +5,6 @@
         [Key]
         public int Id { get; set; }
         public int IdLoaiSP { get; set; }
-        [Required]
-        [Column(TypeName = "VARCHAR(50)")]
         public string? TenSP { get; set; }
         public string? MoTa { get; set; }
         public string? ChatLieu { get; set; }
