@@ -1,6 +1,7 @@
 ﻿using API_FashionShop.BUS;
 using API_FashionShop.Entities;
 using API_FashionShop.Models;
+using API_FashionShop.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,6 +12,7 @@ namespace API_FashionShop.Controllers
     public class HDBanController : ControllerBase
     {
         HDBanBUS hDBanBUS;
+        PaymentService paymentService = new PaymentService();
         public HDBanController(AppDBContext db)
         {
             hDBanBUS = new HDBanBUS(db);
@@ -83,6 +85,22 @@ namespace API_FashionShop.Controllers
             catch (Exception ex)
             {
                 return new Respone(false, Status.ApplicationError, string.Empty, ex);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult CreatePayment(string amout, string info)
+        {
+            try
+            {
+                var result = paymentService.Genarate(amout, info);
+                return File(result, "image/png");
+                //return new Respone(true, Status.Success, string.Empty, a);
+            }
+            catch (Exception ex)
+            {
+                //return new Respone(false, Status.ApplicationError, string.Empty, ex.Message);
+                return null;
             }
         }
     }
