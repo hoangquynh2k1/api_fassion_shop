@@ -105,7 +105,7 @@ namespace API_FashionShop.Controllers
                 return new Respone(false, Status.ApplicationError, string.Empty, ex.Message);
             }
         }
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public Respone Delete(int id)
         {
             try

@@ -99,7 +99,7 @@ namespace API_FashionShop.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public Respone Delete(int id)
         {
             try
