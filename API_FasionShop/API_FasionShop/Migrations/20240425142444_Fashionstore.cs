@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace API_FashionShop.Migrations
 {
     /// <inheritdoc />
-    public partial class Create_db : Migration
+    public partial class Fashionstore : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -284,6 +284,8 @@ namespace API_FashionShop.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     SoTK = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    Avatar = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     TrangThai = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
@@ -299,9 +301,13 @@ namespace API_FashionShop.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     IdLoaiSP = table.Column<int>(type: "int", nullable: false),
-                    TenSP = table.Column<string>(type: "VARCHAR(50)", nullable: false)
+                    TenSP = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     MoTa = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ChatLieu = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ThuongHieu = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Gia = table.Column<int>(type: "int", nullable: false),
                     HinhAnh1 = table.Column<string>(type: "longtext", nullable: true)

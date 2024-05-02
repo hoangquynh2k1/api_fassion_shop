@@ -13,6 +13,7 @@
         public int Quyen { get; set; }
         public string? TenNH { get; set; }
         public string? SoTK { get; set; }
+        public string? Avatar { get; set; }
         public bool TrangThai { get; set; }
     }
 }

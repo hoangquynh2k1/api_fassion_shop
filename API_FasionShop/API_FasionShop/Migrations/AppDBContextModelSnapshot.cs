@@ -350,6 +350,9 @@ namespace API_FashionShop.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<string>("Avatar")
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Email")
                         .HasColumnType("longtext");
 
@@ -388,6 +391,9 @@ namespace API_FashionShop.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<string>("ChatLieu")
+                        .HasColumnType("longtext");
+
                     b.Property<int>("Gia")
                         .HasColumnType("int");
 
@@ -407,8 +413,10 @@ namespace API_FashionShop.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("TenSP")
-                        .IsRequired()
-                        .HasColumnType("VARCHAR(50)");
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("ThuongHieu")
+                        .HasColumnType("longtext");
 
                     b.Property<bool>("TrangThai")
                         .HasColumnType("tinyint(1)");
