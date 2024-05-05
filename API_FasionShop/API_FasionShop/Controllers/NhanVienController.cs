@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API_FashionShop.Controllers
 {
-    [Authorize]
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class NhanVienController : ControllerBase
@@ -24,7 +23,19 @@ namespace API_FashionShop.Controllers
         [HttpGet]
         public Respone GetAll()
         {
-            return new Respone(true, Status.Success, string.Empty, nhanvienBUS.Gets());
+            try
+            {
+                var result = nhanvienBUS.Gets();
+                if (result == null)
+                {
+                    return new Respone(false, Status.NotFound);
+                }
+                return new Respone(true, Status.Success, string.Empty, result);
+            }
+            catch (Exception ex)
+            {
+                return new Respone(false, Status.ApplicationError, string.Empty, ex.Message);
+            }
         }
         [HttpGet]
         public Respone Search()

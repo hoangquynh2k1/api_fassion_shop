@@ -4,6 +4,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace API_FashionShop.Services
@@ -30,7 +31,8 @@ namespace API_FashionShop.Services
             var result = from n in db.NhanViens
                          select new User { 
                              Role = n.Quyen, 
-                             MaNguoiDung = n.Id, 
+                             MaNguoiDung = n.Id,
+                             TaiKhoan = n.Id.ToString(),
                              HoTen = n.HoTen!, 
                              MatKhau = n.Password!, 
                              DienThoai = n.SoDT!, 
@@ -45,6 +47,7 @@ namespace API_FashionShop.Services
             // authentication successful so generate jwt token
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+            //var key = new byte[32]; // Độ dài key là 256-bit (32 bytes)
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
