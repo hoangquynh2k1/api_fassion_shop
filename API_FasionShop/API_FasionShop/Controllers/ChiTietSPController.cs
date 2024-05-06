@@ -47,7 +47,7 @@ namespace API_FashionShop.Controllers
         {
             try
             {
-                if (o.SoLuong > 0 || o.Size == string.Empty)
+                if (o.SoLuong < 0 || o.Size == string.Empty)
                     return new Respone(false, Status.BadRequest, string.Empty);
                 var result = chiTietSPBUS.Create(o);
                 return new Respone(true, Status.Success, string.Empty, o);
@@ -65,6 +65,19 @@ namespace API_FashionShop.Controllers
                 if (o.SoLuong > 0 || o.Size == string.Empty)
                     return new Respone(false, Status.BadRequest, string.Empty);
                 var result = chiTietSPBUS.Update(o);
+                return new Respone(true, Status.Success, string.Empty, result);
+            }
+            catch (Exception ex)
+            {
+                return new Respone(false, Status.ApplicationError, string.Empty, ex.Message);
+            }
+        }
+        [HttpGet("{id}")]
+        public Respone GetByIdSP(int id)
+        {
+            try
+            {
+                var result = chiTietSPBUS.GetByIdSP(id);
                 return new Respone(true, Status.Success, string.Empty, result);
             }
             catch (Exception ex)

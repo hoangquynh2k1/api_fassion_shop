@@ -33,7 +33,7 @@ namespace API_FashionShop.DAO
                     }
                 }
             }
-            var idBestSeller = idSPs.OrderByDescending(x => x.SoLuong).Select(x => x.IdSp).ToList(); // Sắp xếp theo số lượng giảm dần và lấy ra danh sách IdSanPham
+            var idBestSeller = idSPs.OrderByDescending(x => x.SoLuong).Select(x => x.IdSp).ToList();
             return idBestSeller;
         }
 
@@ -45,11 +45,18 @@ namespace API_FashionShop.DAO
         {
             return db.CTSPhams.Where(x => x.TrangThai == true).FirstOrDefault(x => x.Id == id);
         }
+
+        public List<CTSPham> GetByIdSP(int id)
+        {
+            return db.CTSPhams.Where(x => x.TrangThai == true && x.IdSanPham == id).ToList();
+        }
+
         public bool Create(CTSPham o)
         {
             var result = db.CTSPhams.Add(o);
             if(result != null)
             {
+                db.CTSPhams.Add(o);
                 db.SaveChanges();
                 return true;
             }
