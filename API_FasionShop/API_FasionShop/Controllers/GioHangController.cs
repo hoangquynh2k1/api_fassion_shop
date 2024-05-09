@@ -42,6 +42,23 @@ namespace API_FashionShop.Controllers
                 return new Respone(false, Status.ApplicationError, string.Empty, ex.Message);
             }
         }
+        [HttpGet("{id}")]
+        public Respone GetByIdKH(int id)
+        {
+            try
+            {
+                var result = giohangBUS.Get(id);
+                if (result == null)
+                {
+                    return new Respone(false, Status.NotFound);
+                }
+                return new Respone(true, Status.Success, string.Empty, result);
+            }
+            catch (Exception ex)
+            {
+                return new Respone(false, Status.ApplicationError, string.Empty, ex.Message);
+            }
+        }
         [HttpPost]
         public Respone Create(GioHang o)
         {

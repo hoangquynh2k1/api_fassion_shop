@@ -4,6 +4,7 @@
     {
         [Key]
         public int Id { get; set; }
+        public string? DiscountId { get; set; }
         [Column(TypeName = "DATE")]
         public DateTime NgayAD { get; set; }
         [Column(TypeName = "DATE")]

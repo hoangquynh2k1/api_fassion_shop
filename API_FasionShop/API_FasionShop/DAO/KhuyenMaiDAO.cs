@@ -17,6 +17,15 @@ namespace API_FashionShop.DAO
         {
             return db.KhuyenMais.FirstOrDefault(x => x.Id == id);
         }
+        public KhuyenMai? CheckDiscount(string id)
+        {
+            var km = db.KhuyenMais.FirstOrDefault(x => x.DiscountId == id);
+            if (km != null)
+            {
+                return km;
+            }
+            return km;
+        }
         public bool Create(KhuyenMai o)
         {
             var result = db.KhuyenMais.Add(o);

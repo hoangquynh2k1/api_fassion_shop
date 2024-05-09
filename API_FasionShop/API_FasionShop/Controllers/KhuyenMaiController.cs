@@ -21,9 +21,21 @@ namespace API_FashionShop.Controllers
             return new Respone(true, Status.Success, string.Empty, khuyenmaiBUS.Gets());
         }
         [HttpGet]
-        public Respone Search()
+        public Respone CheckDiscount(string discountID)
         {
-            return new Respone(true, Status.Success, string.Empty, khuyenmaiBUS.Gets());
+            try
+            {
+                var result = khuyenmaiBUS.CheckDiscount(discountID);
+                if (result == null)
+                {
+                    return new Respone(false, Status.NotFound);
+                }
+                return new Respone(true, Status.Success, string.Empty, result);
+            }
+            catch (Exception ex)
+            {
+                return new Respone(false, Status.ApplicationError, string.Empty, ex.Message);
+            }
         }
         [HttpGet("{id}")]
         public Respone GetById(int id)
