@@ -16,7 +16,7 @@ namespace API_FashionShop.DAO
         {
             return db.GioHangs.Where(x => x.TrangThai == true).ToList();
         }
-        public GioHang? Get(int id)
+        public GioHangEntity? Get(int id)
         {
             var gh = db.GioHangs.Where(x => x.TrangThai == true).FirstOrDefault(x => x.Id == id);
             if (gh == null) { return null; }
@@ -27,7 +27,20 @@ namespace API_FashionShop.DAO
             gioHangE.NgayTao = gh.NgayTao;
             gioHangE.TrangThai = gh.TrangThai;
             gioHangE.cTGHangs = ctgh;
-            return db.GioHangs.Where(x => x.TrangThai == true).FirstOrDefault(x => x.Id == id);
+            return gioHangE;
+        }
+        public GioHangEntity? GetByIdKH(int id)
+        {
+            var gh = db.GioHangs.Where(x => x.TrangThai == true).FirstOrDefault(x => x.IdKH == id);
+            if (gh == null) { return null; }
+            var ctgh = CTGHangDAO.GetByIdGH(gh.Id);
+            var gioHangE = new GioHangEntity();
+            gioHangE.Id = id;
+            gioHangE.IdKH = gh.IdKH;
+            gioHangE.NgayTao = gh.NgayTao;
+            gioHangE.TrangThai = gh.TrangThai;
+            gioHangE.cTGHangs = ctgh;
+            return gioHangE;
         }
         public bool Create(GioHang o)
         {
