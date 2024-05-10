@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace API_FashionShop.Migrations
 {
     /// <inheritdoc />
-    public partial class Fashionstore : Migration
+    public partial class fashionshop : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -198,6 +198,10 @@ namespace API_FashionShop.Migrations
                     SoDT = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Email = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    TenDN = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    MatKhau = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     GioiTinh = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     TrangThai = table.Column<bool>(type: "tinyint(1)", nullable: false)

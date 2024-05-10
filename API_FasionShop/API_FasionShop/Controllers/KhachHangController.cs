@@ -24,6 +24,23 @@ namespace API_FashionShop.Controllers
             return new Respone(true, Status.Success, string.Empty, khachHangBUS.Gets());
         }
         [HttpPost]
+        public Respone Login([FromBody] AuthenticateModel model)
+        {
+            try
+            {
+                var result = khachHangBUS.Login(model.Username, model.Password);
+                if (result == null)
+                {
+                    return new Respone(false, Status.NotFound);
+                }
+                return new Respone(true, Status.Success, string.Empty, result);
+            }
+            catch (Exception ex)
+            {
+                return new Respone(false, Status.ApplicationError, string.Empty, ex.Message);
+            }
+        }
+        [HttpPost]
         public Respone Search([FromBody] Dictionary<string, object> formData)
         {
             try

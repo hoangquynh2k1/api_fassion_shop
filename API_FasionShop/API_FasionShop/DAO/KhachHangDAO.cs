@@ -17,6 +17,15 @@ namespace API_FashionShop.DAO
         {
             return db.KhachHangs.Where(x => x.TrangThai == true).FirstOrDefault(x => x.Id == id);
         }
+        public KhachHang? Login(string username, string pass)
+        {
+            var kh = db.KhachHangs.Where(x => (x.TenDN == username || x.Email == username) && x.MatKhau == pass).FirstOrDefault();
+            if(kh != null)
+            {
+                kh.MatKhau = null;
+            }
+            return kh;
+        }
         public bool Create(KhachHang o)
         {
             var result = db.KhachHangs.Add(o);

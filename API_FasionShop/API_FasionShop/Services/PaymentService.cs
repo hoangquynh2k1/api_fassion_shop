@@ -19,9 +19,9 @@ namespace API_FashionShop.Services
             //"format": "text",
             //"template": "compact"
             var apiRequest = new ApiRequest();
-            apiRequest.acqId = 970436;
-            apiRequest.accountNo = 1040311169;
-            apiRequest.accountName = "Hoang Quy Quynh";
+            apiRequest.acqId = 970407;
+            apiRequest.accountNo = 6616092002;
+            apiRequest.accountName = "Nguyen Tuan Bao";
             apiRequest.amount = Convert.ToInt32(amount);
             apiRequest.addInfo = info;
             apiRequest.format = "text";
@@ -46,6 +46,7 @@ namespace API_FashionShop.Services
             string imagePath = "Images/qr.png";
             System.IO.File.WriteAllBytes(imagePath, imageBytes);
             var file = System.IO.File.ReadAllBytes(imagePath);
+            System.IO.File.Delete(imagePath);
             return file;
 
         }

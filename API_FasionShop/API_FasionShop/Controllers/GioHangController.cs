@@ -64,7 +64,7 @@ namespace API_FashionShop.Controllers
         {
             try
             {
-                if (o.IdKH != 0)
+                if (o.IdKH == 0)
                     return new Respone(false, Status.BadRequest, string.Empty);
                 var result = giohangBUS.Create(o);
                 return new Respone(true, Status.Success, string.Empty, o);

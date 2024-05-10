@@ -24,12 +24,17 @@ namespace API_FashionShop.DAO
             for (int i = 0; i < list.Count; i ++)
             {
                 ct = new CTGHangEntity();
+                ct.Id = list[i].Id;
                 ct.IdCTSP = list[i].IdCTSP;
                 ct.IdGh = list[i].IdGh;
+                ct.SoLuong = list[i].SoLuong;
                 ctsp = db.CTSPhams.FirstOrDefault(x => x.Id == list[i].IdCTSP)!;
                 sp = db.SanPhams.FirstOrDefault(x => x.Id == ctsp.IdSanPham)!;
-                ct.HinhAnh = ctsp.HinhAnh!;
+                ct.HinhAnh = sp.HinhAnh1!;
                 ct.TenSP = sp.TenSP!;
+                ct.Gia = sp.Gia;
+                ct.Size = ctsp.Size;
+                ctsp.MauSac = ctsp.MauSac;
                 listCTGHang.Add(ct);
             }    
             return listCTGHang;
