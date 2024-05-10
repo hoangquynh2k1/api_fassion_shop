@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API_FashionShop.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20240425142444_Fashionstore")]
-    partial class Fashionstore
+    [Migration("20240509150840_fashionshop")]
+    partial class fashionshop
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -265,10 +265,16 @@ namespace API_FashionShop.Migrations
                     b.Property<string>("HoTen")
                         .HasColumnType("longtext");
 
+                    b.Property<string>("MatKhau")
+                        .HasColumnType("longtext");
+
                     b.Property<DateTime>("NgaySinh")
                         .HasColumnType("DATE");
 
                     b.Property<string>("SoDT")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("TenDN")
                         .HasColumnType("longtext");
 
                     b.Property<bool>("TrangThai")

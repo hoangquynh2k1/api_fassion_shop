@@ -262,10 +262,16 @@ namespace API_FashionShop.Migrations
                     b.Property<string>("HoTen")
                         .HasColumnType("longtext");
 
+                    b.Property<string>("MatKhau")
+                        .HasColumnType("longtext");
+
                     b.Property<DateTime>("NgaySinh")
                         .HasColumnType("DATE");
 
                     b.Property<string>("SoDT")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("TenDN")
                         .HasColumnType("longtext");
 
                     b.Property<bool>("TrangThai")

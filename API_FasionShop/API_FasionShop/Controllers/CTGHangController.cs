@@ -47,7 +47,7 @@ namespace API_FashionShop.Controllers
         {
             try
             {
-                if (o.SoLuong != 0 || o.Size == string.Empty)
+                if (o.SoLuong == 0 || o.Size == string.Empty)
                     return new Respone(false, Status.BadRequest, string.Empty);
                 var result = ctghangBUS.Create(o);
                 return new Respone(true, Status.Success, string.Empty, o);
@@ -62,7 +62,7 @@ namespace API_FashionShop.Controllers
         {
             try
             {
-                if (o.SoLuong != 0 || o.Size == string.Empty)
+                if (o.SoLuong == 0 || o.Size == string.Empty)
                     return new Respone(false, Status.BadRequest, string.Empty);
                 var result = ctghangBUS.Update(o);
                 return new Respone(true, Status.Success, string.Empty, result);

@@ -9,6 +9,8 @@
         public DateTime NgaySinh { get; set; }
         public string? SoDT { get; set; }
         public string? Email { get; set; }
+        public string? TenDN { get; set; }
+        public string? MatKhau { get; set; }
         public bool GioiTinh { get; set; }
         public bool TrangThai { get; set; }
     }

@@ -8,6 +8,7 @@
         public string TenSP { get; set; } = string.Empty;
         public string HinhAnh { get; set; } = string.Empty;
         public int SoLuong { get; set; }
+        public int Gia { get; set; }
         public string? Size { get; set; } = string.Empty;
         public string? MauSac { get; set; } = string.Empty;
 
