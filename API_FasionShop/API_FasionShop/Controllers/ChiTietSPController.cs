@@ -62,7 +62,7 @@ namespace API_FashionShop.Controllers
         {
             try
             {
-                if (o.SoLuong > 0 || o.Size == string.Empty)
+                if (o.SoLuong < 0 || o.Size == string.Empty)
                     return new Respone(false, Status.BadRequest, string.Empty);
                 var result = chiTietSPBUS.Update(o);
                 return new Respone(true, Status.Success, string.Empty, result);
@@ -95,7 +95,7 @@ namespace API_FashionShop.Controllers
             }
             catch (Exception ex)
             {
-                return new Respone(false, Status.ApplicationError, string.Empty, ex);
+                return new Respone(false, Status.ApplicationError, string.Empty, ex.Message);
             }
         }
     }

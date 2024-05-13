@@ -73,6 +73,7 @@ namespace API_FashionShop.DAO
             var result = db.CTGHangs.First(x => x.Id == id);
             if (result != null)
             {
+                db.CTGHangs.Remove(result);
                 db.SaveChanges();
                 return true;
             }

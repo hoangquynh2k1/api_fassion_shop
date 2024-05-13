@@ -52,6 +52,8 @@ namespace API_FashionShop.DAO
             {
                 result.TenSP = o.TenSP;
                 result.MoTa = o.MoTa;
+                result.ThuongHieu = o.ThuongHieu;
+                result.ChatLieu = o.ChatLieu;
                 result.Gia = o.Gia;
                 result.HinhAnh1 = o.HinhAnh1;
                 result.HinhAnh2 = o.HinhAnh2;
