@@ -82,7 +82,7 @@ namespace API_FashionShop.Controllers
             }
             catch (Exception ex)
             {
-                return new Respone(false, Status.ApplicationError, string.Empty, ex);
+                return new Respone(false, Status.ApplicationError, string.Empty, ex.Message);
             }
         }
     }
