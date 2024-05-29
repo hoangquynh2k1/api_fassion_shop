@@ -34,7 +34,7 @@ namespace API_FashionShop.DAO
                 ct.TenSP = sp.TenSP!;
                 ct.Gia = sp.Gia;
                 ct.Size = ctsp.Size;
-                ctsp.MauSac = ctsp.MauSac;
+                ct.MauSac = ctsp.MauSac;
                 listCTGHang.Add(ct);
             }    
             return listCTGHang;
@@ -59,10 +59,7 @@ namespace API_FashionShop.DAO
             if (result != null)
             {
                 result.IdGh = o.IdGh;
-                result.IdCTSP = o.IdCTSP;
                 result.SoLuong = o.SoLuong;
-                result.Size = o.Size;
-                result.MauSac = o.MauSac;
                 db.SaveChanges();
                 return true;
             }

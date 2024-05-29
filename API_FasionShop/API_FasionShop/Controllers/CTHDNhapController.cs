@@ -47,7 +47,7 @@ namespace API_FashionShop.Controllers
         {
             try
             {
-                if (o.GiaNhap != 0 || o.SoLuong > 0 )
+                if (o.GiaNhap == 0 || o.SoLuong < 0 )
                     return new Respone(false, Status.BadRequest, string.Empty);
                 var result = cthdNhapBUS.Create(o);
                 return new Respone(true, Status.Success, string.Empty, o);
@@ -62,7 +62,7 @@ namespace API_FashionShop.Controllers
         {
             try
             {
-                if (o.GiaNhap != 0 || o.SoLuong > 0)
+                if (o.GiaNhap == 0 || o.SoLuong < 0)
                     return new Respone(false, Status.BadRequest, string.Empty);
                 var result = cthdNhapBUS.Update(o);
                 return new Respone(true, Status.Success, string.Empty, result);

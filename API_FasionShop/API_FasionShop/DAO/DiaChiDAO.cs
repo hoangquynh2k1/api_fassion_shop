@@ -17,6 +17,10 @@ namespace API_FashionShop.DAO
         {
             return db.DiaChis.FirstOrDefault(x => x.Id == id);
         }
+        public List <DiaChi> GetByIdKH(int id)
+        {
+            return db.DiaChis.Where(x => x.IdKH == id).ToList();
+        }
         public bool Create(DiaChi o)
         {
             var result = db.DiaChis.Add(o);
@@ -46,6 +50,7 @@ namespace API_FashionShop.DAO
             var result = db.DiaChis.First(x =>x.Id == id);
             if (result != null)
             {
+                db.DiaChis.Remove(result);
                 db.SaveChanges();
                 return true;
             }

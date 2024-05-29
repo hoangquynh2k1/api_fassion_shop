@@ -4,6 +4,7 @@ using API_FashionShop.Models;
 using API_FashionShop.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace API_FashionShop.Controllers
 {
@@ -23,25 +24,65 @@ namespace API_FashionShop.Controllers
         {
             return new Respone(true, Status.Success, string.Empty, sanPhamBUS.Gets());
         }
+        [HttpGet]
+        public Respone GetBestSeller()
+        {
+            try
+            {
+                var result = sanPhamBUS.GetBestSeller();
+                if (result == null)
+                {
+                    return new Respone(false, Status.NotFound);
+                }
+                return new Respone(true, Status.Success, string.Empty, result);
+
+            }
+            catch (Exception ex)
+            {
+                return new Respone(false, Status.ApplicationError, string.Empty, ex.Message);
+            }
+        }
+        [HttpGet]
+        public Respone GetLabel()
+        {
+            try
+            {
+                var result = sanPhamBUS.GetLabel();
+                if (result == null)
+                {
+                    return new Respone(false, Status.NotFound);
+                }
+                return new Respone(true, Status.Success, string.Empty, result);
+
+            }
+            catch (Exception ex)
+            {
+                return new Respone(false, Status.ApplicationError, string.Empty, ex.Message);
+            }
+        }
         [HttpPost]
         public Respone Search([FromBody] Dictionary<string, object> formData)
         {
             try
+            
             {
                 var page = int.Parse(formData["page"].ToString());
                 var pageSize = int.Parse(formData["pageSize"].ToString());
                 string loc = string.Empty;
                 string thuongHieu = string.Empty;
+                int IdLoaiSP = int.Parse( formData["idloaiSP"].ToString());
                 if (formData.Keys.Contains("tenSP") && !string.IsNullOrEmpty(Convert.ToString(formData["tenSP"])))
                 { loc = formData["tenSP"].ToString(); }
                 if (formData.Keys.Contains("thuongHieu") && !string.IsNullOrEmpty(Convert.ToString(formData["thuongHieu"])))
                 { thuongHieu = formData["thuongHieu"].ToString(); }
                 List<SanPham> list = sanPhamBUS.Gets();
                 long total = list.Count();
-                list = list.Where(x => x.TenSP!.ToLower().Contains(loc.ToLower())
-                || x.ThuongHieu!.ToLower().Contains(thuongHieu.ToLower())
-                ).
-                    Skip(pageSize * (page - 1)).Take(pageSize).ToList();
+                if (IdLoaiSP > 0)
+                    list = list.Where(x => x.IdLoaiSP == IdLoaiSP).ToList();
+                if (thuongHieu != string.Empty)
+                    list = list.Where(x => x.ThuongHieu!.ToLower().Contains(thuongHieu.ToLower())).ToList();
+                list = list.Where(x => x.TenSP!.ToLower().Contains(loc.ToLower())).ToList();
+                list = list.Skip(pageSize * (page - 1)).Take(pageSize).ToList();
                 return new Respone(true, Status.Success, string.Empty,
                            new DataSearch
                            {
@@ -63,6 +104,24 @@ namespace API_FashionShop.Controllers
             try
             {
                 var result = sanPhamBUS.Get(id);
+                if (result == null)
+                {
+                    return new Respone(false, Status.NotFound);
+                }
+                return new Respone(true, Status.Success, string.Empty, result);
+
+            }
+            catch (Exception ex)
+            {
+                return new Respone(false, Status.ApplicationError, string.Empty, ex.Message);
+            }
+        }
+        [HttpGet("{id}")]
+        public Respone GetRelated(int id)
+        {
+            try
+            {
+                var result = sanPhamBUS.GetRelated(id);
                 if (result == null)
                 {
                     return new Respone(false, Status.NotFound);

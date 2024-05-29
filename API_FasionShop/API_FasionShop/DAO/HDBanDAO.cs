@@ -1,26 +1,44 @@
-﻿using API_FashionShop.Models;
+﻿using API_FashionShop.Entities;
+using API_FashionShop.Models;
 
 namespace API_FashionShop.DAO
 {
     public class HDBanDAO
     {
         AppDBContext db;
+        CTHDBanDAO CTHDBanDAO;
         public HDBanDAO(AppDBContext db)
         {
             this.db = db;
+            CTHDBanDAO = new CTHDBanDAO(db);
         }
         public List<HDBan> Gets()
         {
             return db.HDBans.Where(x => x.TrangThai == true).ToList();
         }
-        public HDBan? Get(int id)
+        public HDBanEntity? Get(int id)
         {
-            return db.HDBans.Where(x => x.TrangThai == true).FirstOrDefault(x => x.Id == id);
+            var hd = db.HDBans.Where(x => x.TrangThai == true).FirstOrDefault(x => x.Id == id);
+            if (hd == null) { return null; }
+            var cthd = CTHDBanDAO.GetByIdHDBan(id);
+            var hdBanE = new HDBanEntity();
+            hdBanE.Id = id;
+            hdBanE.IdKH = hd.IdKH;
+            hdBanE.IdNV = hd.IdNV;
+            hdBanE.IdDiaChi = hd.IdDiaChi;
+            hdBanE.GhiChu = hd.GhiChu;
+            hdBanE.NgayTao = hd.NgayTao;
+            hdBanE.KhuyenMai = hd.KhuyenMai;
+            hdBanE.TongTien = hd.TongTien;
+            hdBanE.TinhTrangDH = hd.TinhTrangDH;
+            hdBanE.TrangThai = hd.TrangThai;
+            return hdBanE;
         }
         public List<HDBan> GetByIdHKH(int id)
         {
             return db.HDBans.Where(x => x.TrangThai == true && x.IdKH == id).ToList();
         }
+
         public bool Create(HDBan o)
         {
             var result = db.HDBans.Add(o);
@@ -60,5 +78,6 @@ namespace API_FashionShop.DAO
             }
             return false;
         }
+
     }
 }

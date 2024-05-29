@@ -26,6 +26,23 @@ namespace API_FashionShop.Controllers
             return new Respone(true, Status.Success, string.Empty, diachiBUS.Gets());
         }
         [HttpGet("{id}")]
+        public Respone GetByIdKH(int id)
+        {
+            try
+            {
+                var result = diachiBUS.GetByIdKH(id);
+                if (result == null)
+                {
+                    return new Respone(false, Status.NotFound);
+                }
+                return new Respone(true, Status.Success, string.Empty, result);
+            }
+            catch (Exception ex)
+            {
+                return new Respone(false, Status.ApplicationError, string.Empty, ex.Message);
+            }
+        }
+        [HttpGet("{id}")]
         public Respone GetById(int id)
         {
             try

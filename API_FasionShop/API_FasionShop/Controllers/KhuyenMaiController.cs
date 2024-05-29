@@ -20,6 +20,37 @@ namespace API_FashionShop.Controllers
         {
             return new Respone(true, Status.Success, string.Empty, khuyenmaiBUS.Gets());
         }
+        [HttpPost]
+        public Respone Search([FromBody] Dictionary<string, object> formData)
+        {
+            try
+            {
+                var page = int.Parse(formData["page"].ToString());
+                var pageSize = int.Parse(formData["pageSize"].ToString());
+                string loc = string.Empty;
+                string email = string.Empty;
+                if (formData.Keys.Contains("discountId") && !string.IsNullOrEmpty(Convert.ToString(formData["discountId"])))
+                { loc = formData["hoTen"].ToString(); }
+                List<KhuyenMai> list = khuyenmaiBUS.Gets();
+                long total = list.Count();
+                list = list.Where(x => x.DiscountId.ToLower().Contains(loc.ToLower())
+                ).
+                    Skip(pageSize * (page - 1)).Take(pageSize).ToList();
+                return new Respone(true, Status.Success, string.Empty,
+                           new DataSearch
+                           {
+                               page = page,
+                               totalItem = total,
+                               pageSize = pageSize,
+                               data = list
+                           }
+                         );
+            }
+            catch (Exception ex)
+            {
+                return new Respone(false, Status.ApplicationError, string.Empty, ex.Message);
+            }
+        }
         [HttpGet]
         public Respone CheckDiscount(string discountID)
         {
@@ -59,7 +90,7 @@ namespace API_FashionShop.Controllers
         {
             try
             {
-                if (o.TiLeKM > 0)
+                if (o.TiLeKM < 0)
                     return new Respone(false, Status.BadRequest, string.Empty);
                 var result = khuyenmaiBUS.Create(o);
                 return new Respone(true, Status.Success, string.Empty, o);
