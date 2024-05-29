@@ -47,7 +47,7 @@ namespace API_FashionShop.Controllers
         {
             try
             {
-                var result = giohangBUS.Get(id);
+                var result = giohangBUS.GetByIdKH(id);
                 if (result == null)
                 {
                     return new Respone(false, Status.NotFound);

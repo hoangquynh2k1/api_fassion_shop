@@ -10,6 +10,7 @@
         public DateTime NgayTao { get; set; }
         public int KhuyenMai { get; set; }
         public int TongTien { get; set; }
+        public int TinhTrangDH { get; set; }
         public bool TrangThai { get; set; }
         public List<CTHDBanEntity> CTHDBans { get; set; } = new List<CTHDBanEntity>(); 
     }

@@ -21,6 +21,20 @@ namespace API_FashionShop.DAO
             var list = cTSPhamDAO.GetBestSellerList();
             return db.SanPhams.Where(x => list.Contains(x.Id)).ToList();
         }
+        public List<string> GetLabel()
+        {
+            var list = db.SanPhams.Where(x => x.TrangThai == true).GroupBy(x => x.ThuongHieu).Select(x => new string(x.Key))
+                .ToList();
+            return list;
+        }
+        public List<SanPham> GetRelated(int id)
+        {
+            var sp = db.SanPhams.FirstOrDefault(x => x.Id == id);
+            var list = db.SanPhams.Where(x => (x.TrangThai == true && x.IdLoaiSP == sp.IdLoaiSP)).ToList();
+            list.Remove(sp);
+            list.Take(4);
+            return list;
+        }
         public SanPhamEntity? Get(int id)
         {
             var sp = db.SanPhams.Where(x => x.TrangThai == true).FirstOrDefault(x => x.Id == id);
@@ -28,6 +42,7 @@ namespace API_FashionShop.DAO
             var ctsp = db.CTSPhams.Where(x => x.IdSanPham == id && x.TrangThai == true).ToList();
             var sanPhamE = new SanPhamEntity();
             sanPhamE.Id = id;
+            sanPhamE.IdLoaiSP = sp.IdLoaiSP;
             sanPhamE.TenSP = sp.TenSP;
             sanPhamE.MoTa = sp.MoTa;
             sanPhamE.Gia = sp.Gia;
@@ -50,6 +65,7 @@ namespace API_FashionShop.DAO
             var result = db.SanPhams.Where(x => x.TrangThai == true).FirstOrDefault(x => x.Id == o.Id);
             if (result != null)
             {
+                result.IdLoaiSP = o.IdLoaiSP;
                 result.TenSP = o.TenSP;
                 result.MoTa = o.MoTa;
                 result.ThuongHieu = o.ThuongHieu;

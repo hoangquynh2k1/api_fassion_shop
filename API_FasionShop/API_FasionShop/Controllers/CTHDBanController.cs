@@ -47,7 +47,7 @@ namespace API_FashionShop.Controllers
         {
             try
             {
-                if (o.SoLuong != 0)
+                if (o.SoLuong == 0)
                     return new Respone(false, Status.BadRequest, string.Empty);
                 var result = cthdbanBUS.Create(o);
                 return new Respone(true, Status.Success, string.Empty, o);
@@ -62,7 +62,7 @@ namespace API_FashionShop.Controllers
         {
             try
             {
-                if (o.SoLuong != 0)
+                if (o.SoLuong == 0)
                     return new Respone(false, Status.BadRequest, string.Empty);
                 var result = cthdbanBUS.Update(o);
                 return new Respone(true, Status.Success, string.Empty, result);

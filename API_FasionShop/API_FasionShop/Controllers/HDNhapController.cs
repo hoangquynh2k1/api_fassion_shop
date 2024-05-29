@@ -47,7 +47,7 @@ namespace API_FashionShop.Controllers
         {
             try
             {
-                if (o.IdNcc != 0 || o.IdNhanVien != 0)
+                if (o.IdNcc == 0 || o.IdNhanVien == 0)
                     return new Respone(false, Status.BadRequest, string.Empty);
                 var result = hDNhapBUS.Create(o);
                 return new Respone(true, Status.Success, string.Empty, o);
@@ -62,7 +62,7 @@ namespace API_FashionShop.Controllers
         {
             try
             {
-                if (o.IdNcc != 0 || o.IdNhanVien != 0)
+                if (o.IdNcc == 0 || o.IdNhanVien == 0)
                     return new Respone(false, Status.BadRequest, string.Empty);
                 var result = hDNhapBUS.Update(o);
                 return new Respone(true, Status.Success, string.Empty, result);

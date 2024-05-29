@@ -35,7 +35,7 @@ namespace API_FashionShop.DAO
             if (gh == null) { return null; }
             var ctgh = CTGHangDAO.GetByIdGH(gh.Id);
             var gioHangE = new GioHangEntity();
-            gioHangE.Id = id;
+            gioHangE.Id = gh.Id;
             gioHangE.IdKH = gh.IdKH;
             gioHangE.NgayTao = gh.NgayTao;
             gioHangE.TrangThai = gh.TrangThai;
@@ -70,7 +70,7 @@ namespace API_FashionShop.DAO
             var result = db.GioHangs.Where(x => x.TrangThai == true).First(x => x.Id == id);
             if (result != null)
             {
-                result.TrangThai = false;
+                db.GioHangs.Remove(result);
                 db.SaveChanges();
                 return true;
             }

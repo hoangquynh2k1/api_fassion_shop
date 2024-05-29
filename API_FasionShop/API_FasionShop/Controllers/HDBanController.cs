@@ -51,7 +51,7 @@ namespace API_FashionShop.Controllers
         {
             try
             {
-                if (o.KhuyenMai != 0 || o.TongTien > 0)
+                if (o.KhuyenMai < 0 || o.TongTien < 0)
                     return new Respone(false, Status.BadRequest, string.Empty);
                 var result = hDBanBUS.Create(o);
                 return new Respone(true, Status.Success, string.Empty, o);
@@ -66,7 +66,7 @@ namespace API_FashionShop.Controllers
         {
             try
             {
-                if (o.KhuyenMai != 0 || o.TongTien > 0)
+                if (o.KhuyenMai < 0 || o.TongTien < 0)
                     return new Respone(false, Status.BadRequest, string.Empty);
                 var result = hDBanBUS.Update(o);
                 return new Respone(true, Status.Success, string.Empty, result);
