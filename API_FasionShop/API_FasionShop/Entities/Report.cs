@@ -1,8 +1,9 @@
 ﻿namespace API_FashionShop.Entities
 {
-    public class Report
+    public class Statistic
     {
-        
+        public string Name { get; set; }
+        public int Value { get; set; }
     }
 
     public class BestSeller

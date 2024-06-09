@@ -43,6 +43,24 @@ namespace API_FashionShop.Controllers
             }
         }
         [HttpGet]
+        public Respone GetNews()
+        {
+            try
+            {
+                var result = sanPhamBUS.Gets().OrderByDescending(x => x.Id).ToList();
+                if (result == null)
+                {
+                    return new Respone(false, Status.NotFound);
+                }
+                return new Respone(true, Status.Success, string.Empty, result);
+
+            }
+            catch (Exception ex)
+            {
+                return new Respone(false, Status.ApplicationError, string.Empty, ex.Message);
+            }
+        }
+        [HttpGet]
         public Respone GetLabel()
         {
             try
