@@ -105,7 +105,7 @@ namespace API_FashionShop.Controllers
         {
             try
             {
-                if (o.TiLeKM > 0)
+                if (o.TiLeKM < 0)
                     return new Respone(false, Status.BadRequest, string.Empty);
                 var result = khuyenmaiBUS.Update(o);
                 return new Respone(true, Status.Success, string.Empty, result);

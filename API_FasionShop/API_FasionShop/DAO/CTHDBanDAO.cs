@@ -28,7 +28,7 @@ namespace API_FashionShop.DAO
                 ct.IdHDBan = list[i].IdHDBan;
                 ctsp = db.CTSPhams.FirstOrDefault(x => x.Id == list[i].IdCTSPham)!;
                 sp = db.SanPhams.FirstOrDefault(x => x.Id == ctsp.IdSanPham)!;
-                ct.HinhAnh = ctsp.HinhAnh!;
+                ct.HinhAnh = sp.HinhAnh1!;
                 ct.TenSP = sp.TenSP!;
                 ct.Size = ctsp.Size;
                 ct.SoLuong = list[i].SoLuong;

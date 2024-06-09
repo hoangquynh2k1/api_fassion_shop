@@ -24,10 +24,32 @@ namespace API_FashionShop.Controllers
         {
             return new Respone(true, Status.Success, string.Empty, hDBanBUS.Gets());
         }
-        [HttpGet]
-        public Respone Search()
+        [HttpPost]
+        public Respone Search([FromBody] Dictionary<string, object> formData)
         {
-            return new Respone(true, Status.Success, string.Empty, hDBanBUS.Gets());
+            try
+            {
+                var page = int.Parse(formData["page"].ToString());
+                var pageSize = int.Parse(formData["pageSize"].ToString());
+                string loc = string.Empty;
+                //kiểm tra và gán giá trị loc nếu có trong formData
+                List<HDBanEntity> list = hDBanBUS.Gets();
+                long total = list.Count();
+                list = list.Skip(pageSize * (page - 1)).Take(pageSize).ToList();
+                return new Respone(true, Status.Success, string.Empty,
+                           new DataSearch
+                           {
+                               page = page,
+                               totalItem = total,
+                               pageSize = pageSize,
+                               data = list
+                           }
+                         );
+            }
+            catch (Exception ex)
+            {
+                return new Respone(false, Status.ApplicationError, string.Empty, ex.Message);
+            }
         }
         [HttpGet("{id}")]
         public Respone GetById(int id)
@@ -35,6 +57,24 @@ namespace API_FashionShop.Controllers
             try
             {
                 var result = hDBanBUS.Get(id);
+                if (result == null)
+                {
+                    return new Respone(false, Status.NotFound);
+                }
+                return new Respone(true, Status.Success, string.Empty, result);
+            }
+            catch (Exception ex)
+            {
+                return new Respone(false, Status.ApplicationError, string.Empty, ex.Message);
+            }
+        }
+        [HttpGet]
+        public Respone GetStatistic()
+        {
+            try
+            {
+                var result = hDBanBUS.GetStatistic();
+                result.Reverse();
                 if (result == null)
                 {
                     return new Respone(false, Status.NotFound);
@@ -76,7 +116,7 @@ namespace API_FashionShop.Controllers
                 return new Respone(false, Status.ApplicationError, string.Empty, ex.Message);
             }
         }
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public Respone Delete(int id)
         {
             try
@@ -106,21 +146,21 @@ namespace API_FashionShop.Controllers
             }
         }
 
-        [HttpGet]
-        public ActionResult SendMail(string email)
+        [HttpPost]
+        public ActionResult SendMail([FromQuery] string email, [FromBody] HDBanEntity hdb)
         {
-            string emailHTML = " <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\">" +
-                "<tr>    <td align=\"center\">        " +
-                "<img src=\"https://cdn.tgdd.vn/Products/Images/522/163645/ipad-6th-wifi-32gb-1-400x460.png\" alt=\"ipad 2018\" width=\"280\" height=\"218\" border=\"0\" style=\"display: block;\" />    " +
-                "</td>    </tr>    <tr>    " +
-                "<td align=\"center\">        ipad 2019    </td>    </tr>    " +
-                "<tr>    <td align=\"center\">        8500000vnd    " +
-                "</td>    </tr>    <tr>    <td align=\"center\" class=\"link\">        " +
-                "<a border=\"0\" href=\"#\" style=\"text-decoration:none;display:inline-block;color:#000000;background-color:#f6d16c;border-radius:0px;-webkit-border-radius:0px;-moz-border-radius:0px;width:auto; width:auto;;border-top:1px solid #f6d16c;border-right:1px solid #f6d16c;border-bottom:1px solid #f6d16c;border-left:1px solid #f6d16c;padding-top:1px;padding-bottom:2px;font-family:Merriwheater, Georgia, serif;text-align:center;mso-border-alt:none;word-break:keep-all;\">  " +
-                "<span style=\"padding-left:10px;padding-right:10px;font-size:12px;display:inline-block;\">            Chi tiết        </span>" +
-                "</a>    </td>    </tr></table>";
-            var result = sendMailService.SendEmailAsync(email,"", emailHTML);
-            return Ok(result);
+            string emailHTML = MailHTML.RenderHTML(hdb);
+            try
+            {
+                sendMailService.SendEmailAsync(email,"Thông báo xác nhận đặt hàng", emailHTML);
+                
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+            
         }
     }
 }

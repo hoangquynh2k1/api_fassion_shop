@@ -7,36 +7,99 @@ namespace API_FashionShop.DAO
     {
         AppDBContext db;
         CTHDBanDAO CTHDBanDAO;
+        KhachHangDAO khachHangDAO;
+        NhanVienDAO nhanVienDAO;
+        DiaChiDAO diaChiDAO;
         public HDBanDAO(AppDBContext db)
         {
             this.db = db;
             CTHDBanDAO = new CTHDBanDAO(db);
+            khachHangDAO = new KhachHangDAO(db);
+            nhanVienDAO = new NhanVienDAO(db);
+            diaChiDAO = new DiaChiDAO(db);
         }
-        public List<HDBan> Gets()
+        public List<HDBanEntity> Gets()
         {
-            return db.HDBans.Where(x => x.TrangThai == true).ToList();
+            var list = db.HDBans.Where(x => x.TrangThai).ToList();
+            List<HDBanEntity> result = new List<HDBanEntity>();
+            HDBanEntity hDBan;
+            for (int i = 0; i < list.Count; i++)
+            {
+                hDBan = Get(list[i].Id);
+                result.Add(hDBan);
+            }
+            return result;
+        }
+        public List<Statistic> GetStatistic()
+        {
+            var result = db.HDBans.Where(x => x.TrangThai == true && x.NgayTao > DateTime.Now.AddMonths(-5))
+                .OrderByDescending(x => x.NgayTao).ToList();
+            var list = new List<Statistic>();
+            var item = result[0];
+            Statistic s = new Statistic();
+            s.Name = item.NgayTao.Month + "/" + item.NgayTao.Year;
+            s.Value = item.TongTien;
+            for (int i = 1; i < result.Count; i++)
+            {
+                if (result[i].NgayTao.Month == item.NgayTao.Month)
+                {
+                    if (i == result.Count - 1)
+                    {
+                        s.Value = s.Value + result[i].TongTien;
+                        list.Add(s);
+                    }
+                    s.Value = s.Value + result[i].TongTien;
+                    item = result[i];
+                }
+                else
+                {
+                    list.Add(s);
+                    s = new Statistic();
+                    s.Name = result[i].NgayTao.Month + "/" + result[i].NgayTao.Year;
+                    s.Value = result[i].TongTien;
+                    item = result[i];
+                    if (i == result.Count - 1)
+                    {
+                        list.Add(s);
+                    }
+                }
+            }
+            return list;
         }
         public HDBanEntity? Get(int id)
         {
             var hd = db.HDBans.Where(x => x.TrangThai == true).FirstOrDefault(x => x.Id == id);
             if (hd == null) { return null; }
             var cthd = CTHDBanDAO.GetByIdHDBan(id);
+            var kh = khachHangDAO.Get(hd.IdKH);
+            var nv = nhanVienDAO.Get(hd.IdNV);
             var hdBanE = new HDBanEntity();
+            var dc = diaChiDAO.Get(hd.IdDiaChi);
             hdBanE.Id = id;
-            hdBanE.IdKH = hd.IdKH;
-            hdBanE.IdNV = hd.IdNV;
-            hdBanE.IdDiaChi = hd.IdDiaChi;
+            hdBanE.TenKH = kh.HoTen;
+            hdBanE.Email = kh.Email;
+            hdBanE.TenNV = nv != null ? nv.HoTen : "";
+            hdBanE.DiaChi = dc;
             hdBanE.GhiChu = hd.GhiChu;
             hdBanE.NgayTao = hd.NgayTao;
             hdBanE.KhuyenMai = hd.KhuyenMai;
             hdBanE.TongTien = hd.TongTien;
             hdBanE.TinhTrangDH = hd.TinhTrangDH;
+            hdBanE.CTHDBans = cthd;
             hdBanE.TrangThai = hd.TrangThai;
             return hdBanE;
         }
-        public List<HDBan> GetByIdHKH(int id)
+        public List<HDBanEntity> GetByIdHKH(int id)
         {
-            return db.HDBans.Where(x => x.TrangThai == true && x.IdKH == id).ToList();
+            var list = db.HDBans.Where(x => x.TrangThai == true && x.IdKH == id).ToList();
+            List<HDBanEntity> result = new List<HDBanEntity>();
+            HDBanEntity hDBan;
+            for(int i = 0; i < list.Count; i++)
+            {
+                hDBan = Get(list[i].Id);
+                result.Add(hDBan);
+            }
+            return result;
         }
 
         public bool Create(HDBan o)
@@ -54,14 +117,9 @@ namespace API_FashionShop.DAO
             var result = db.HDBans.Where(x => x.TrangThai == true).First(x => x.Id == o.Id);
             if (result != null)
             {
-                result.IdKH = o.IdKH;
                 result.IdNV = o.IdNV;
-                result.IdDiaChi = o.IdDiaChi;
-                result.GhiChu = o.GhiChu;
-                result.NgayTao = o.NgayTao;
-                result.KhuyenMai = o.KhuyenMai;
-                result.TongTien = o.TongTien;
                 result.TrangThai = o.TrangThai;
+                result.TinhTrangDH = o.TinhTrangDH;
                 db.SaveChanges();
                 return true;
             }
