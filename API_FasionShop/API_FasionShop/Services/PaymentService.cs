@@ -11,13 +11,6 @@ namespace API_FashionShop.Services
     {
         public byte[] Genarate(string amount, string info)
         {
-            //"accountNo": 113366668888,
-            //"accountName": "QUY VAC XIN PHONG CHONG COVID",
-            //"acqId": 970415,
-            //"amount": 79000,
-            //"addInfo": "Ung Ho Quy Vac Xin",
-            //"format": "text",
-            //"template": "compact"
             var apiRequest = new ApiRequest();
             apiRequest.acqId = 970407;
             apiRequest.accountNo = 6616092002;
@@ -26,16 +19,17 @@ namespace API_FashionShop.Services
             apiRequest.addInfo = info;
             apiRequest.format = "text";
             apiRequest.template = "compact";
+            //chuyển đổi chuỗi json
             var jsonRequest = JsonConvert.SerializeObject(apiRequest);
-            // use restsharp for request api.
+            // sử dụng thư viện restsharp để gửi yêu cầu Post tới API.
             var client = new RestClient("https://api.vietqr.io/v2/generate");
             var request = new RestRequest();
 
             request.Method = RestSharp.Method.Post;
             request.AddHeader("Accept", "application/json");
-
+            //gửi chuỗi JSON đã được tạo ra như là phần thân của yêu cầu
             request.AddParameter("application/json", jsonRequest, ParameterType.RequestBody);
-
+            //thưc thi API
             var response = client.Execute(request);
             var content = response.Content;
             var dataResult = JsonConvert.DeserializeObject<ApiResponse>(content!);

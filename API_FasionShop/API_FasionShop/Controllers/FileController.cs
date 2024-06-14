@@ -39,6 +39,20 @@ namespace API_FashionShop.Controllers
             }
         }
 
+        [HttpPost("Upload/Post")]
+        public async Task<Respone> UploadPost(IFormFile f)
+        {
+            try
+            {
+                var result = await fileService.Upload(f, "Posts");
+                return new Respone(true, Status.Success, string.Empty, result);
+            }
+            catch (Exception ex)
+            {
+                return new Respone(false, Status.ApplicationError, string.Empty, ex.Message);
+            }
+        }
+
         [HttpGet("ReadFile")]
         public ActionResult ReadFile(string path)
         {

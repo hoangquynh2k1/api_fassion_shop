@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <Folder Include="Images\Avatars\" />
+    <Folder Include="Images\Posts\" />
     <Folder Include="Images\Products\" />
     <Folder Include="Migrations\" />
   </ItemGroup>
