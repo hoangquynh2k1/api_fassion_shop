@@ -9,6 +9,7 @@
         public string? NoiDung { get; set; }
         [Column(TypeName = "DATE")]
         public DateTime NgayViet { get; set; }
+        public string? HinhAnh { get; set; }
         public bool TrangThai { get; set; }
     }
 }

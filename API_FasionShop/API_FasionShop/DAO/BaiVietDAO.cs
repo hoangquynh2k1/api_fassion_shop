@@ -34,6 +34,8 @@ namespace API_FashionShop.DAO
             {
                 result.TieuDe = o.TieuDe;
                 result.NoiDung = o.NoiDung;
+                result.NgayViet = o.NgayViet;
+                result.HinhAnh = o.HinhAnh;
                 db.SaveChanges();
                 return true;
             }

@@ -1,0 +1,79 @@
+From: Shop Male Fashion <tuanbao160902@gmail.com>
+Date: Sun, 09 Jun 2024 21:55:19 +0700
+Subject: =?utf-8?b?VGjDtG5nIGLDoW8geMOhYyBuaOG6rW4gxJHhurd0IGjDoG5n?=
+Message-Id: <AC9YB2XW9NU4.A9HQCSQL2UNT@msi>
+Sender: Shop Male Fashion <tuanbao160902@gmail.com>
+To: 1
+MIME-Version: 1.0
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE html><html lang=3D"en">
+
+<head>    <meta charset=3D"UTF-8">    <meta name=3D"viewport" content=3D"wi=
+dth=3Ddevice-width, initial-scale=3D1.0">    <title>Document</title>    <!-=
+- CSS only -->    <style>        .cart-success__content { width: 100%; max-=
+width: 800px; margin: 0 auto; padding: 50px 0; }        .cart-success__head=
+er { margin-bottom: 25px; text-align: center; }        .cart-success__title=
+>h4 { margin: 0 0 25px; font-size: 28px; font-weight: 400;             colo=
+r: #f55334; }        .cart-success__title>p, .cart-success__subtitle { marg=
+in: 0 0 10px; font-size: 12px; }        .cart-success__body>p { font-size: =
+18px; margin-bottom: 12px; }        .cart-success__body>table { font-size: =
+14px;        }        .cart-success__body>table>thead>tr>th {font-size: 14p=
+x; font-weight: 100; }        .cart-success__body>table>thead,        .cart=
+-success__body>table>tbody>tr>td {            text-align: center;        } =
+       .cart-success__item-title {            text-align: left !important; =
+       }        .cart-success__addresss {            font-size: 14px;      =
+  }        .cart-success__address-group {            display: flex;        =
+}        .cart-success__address-label {            font-weight: 600;
+            margin-right: 6px;
+        }
+
+    </style>
+
+</head>
+
+<body>     <div class=3D"container">        <div class=3D"cart-success__con=
+tent">            <div class=3D"cart-success__header">                <div =
+class=3D"cart-success__title">                   <h4>=C4=90=E1=BA=B7t h=C3=A0=
+ng th=C3=A0nh c=C3=B4ng!</h4>                    <p>C=E1=BA=A3m =C6=A1n b=E1=
+=BA=A1n =C4=91=C3=A3 =C4=91=E1=BA=B7t mua h=C3=A0ng t=E1=BA=A1i Male Fashio=
+n</p>                    <p>=C4=90=C6=A1n h=C3=A0ng c=E1=BB=A7a b=E1=BA=A1n=
+ hi=E1=BB=87n =C4=91ang =C4=91=C6=B0=E1=BB=A3c x=E1=BB=AD l=C3=BD. Ch=C3=BA=
+ng t=C3=B4i s=E1=BA=BD s=E1=BB=9Bm li=C3=AAn h=E1=BB=87 =C4=91=E1=BB=83 gia=
+o h=C3=A0ng.</p>                </div>                <div style=3D"display=
+: flex;justify-content:center" class=3D"cart-success__subtitle">M=C3=A3 =C4=
+=91=C6=A1n h=C3=A0ng c=E1=BB=A7a b=E1=BA=A1n:string                </div>  =
+          </div>< div class=3D"cart-success__body">                <p>Th=C3=
+=B4ng tin =C4=91=C6=A1n h=C3=A0ng:</p>                <table class=3D"table=
+ table-bordered">                    <thead>                       <tr>    =
+                        <th>T=C3=AAn s=E1=BA=A3n ph=E1=BA=A9m</th>         =
+                   <th>S=E1=BB=91 l=C6=B0=E1=BB=A3ng</th>                  =
+          <th>Thu=E1=BB=99c t=C3=ADnh</th>                        </tr>    =
+               </thead>                    <tbody><tr><td>string</td><td>st=
+ring</td><td>0</td><td>stringstring</td>                        <tr>       =
+                    <td class=3D"cart-success__item-title" colspan=3D"2">T=E1=
+=BB=95ng gi=C3=A1 tr=E1=BB=8B s=E1=BA=A3n ph=E1=BA=A9m</td>                =
+            <td>0 =C4=91</td>                        </tr>                 =
+       <tr>                            <td class=3D"cart-success__item-titl=
+e" colspan=3D"2">Ph=C3=AD Ship</td>                            <td>0=C4=91<=
+/td>                        </tr>                        <tr>              =
+              <td class=3D"cart-success__item-title" colspan=3D"2">T=E1=BB=95=
+ng thanh to=C3=A1n</td>                            <td style=3D"color: oran=
+gered">0 =C4=91</td>                    </tbody>                </table> <p=
+> Th=C3=B4ng tin nh=E1=BA=ADn h=C3=A0ng:</p>                 <div class=3D"=
+cart-success__addresss">                    <div class=3D"cart-success__add=
+ress-group">                        <label for=3D"" class=3D"cart-success__=
+address-label">Ng=C6=B0=E1=BB=9Di nh=E1=BA=ADn :</label>                   =
+     <p id=3D"tennguoinhan" class=3D"cart-success__address-content">string<=
+/p>                    </div>                    <div class=3D"cart-success=
+__address-group">                        <label for=3D"" class=3D"cart-succ=
+ess__address-label">                            S=E1=BB=91 =C4=91i=E1=BB=87=
+n tho=E1=BA=A1i :                        </label>                        <p=
+ id=3D"sdt" class=3D"cart-success__address-content">string</p>             =
+       </div>                    <div class=3D"cart-success__address-group"=
+>                        <label for=3D"" class=3D"cart-success__address-lab=
+el">=C4=90=E1=BB=8Ba ch=E1=BB=89:</label>                        <p id=3D"d=
+iachi" class=3D"cart-success__address-content">string</p>                  =
+  </div>                </div>            </div>            <div class=3D"c=
+art-success__footer"></div>        </div>    </div></body></html>=
